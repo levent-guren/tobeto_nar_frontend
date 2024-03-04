@@ -10,6 +10,7 @@ export class LoginService {
   token = "";
   email = "";
   password = "";
+  roller: string[] = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -17,17 +18,21 @@ export class LoginService {
 
   login(email:string , password: string):Observable<any> {
     return this.httpClient.post<any>('/login', {email, password}).pipe(
-      map(data => {
-        this.loggedIn = true;
-        this.token = data.token;
-        this.email = email;
-        this.password = password;
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-        return data;
-      })
+      map(data => this.parseLoginResponse(data, email, password))
     );
+  }
+
+  parseLoginResponse(data: any, email: string, password: string) {
+    this.loggedIn = true;
+    this.token = data.token;
+    this.email = email;
+    this.password = password;
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+    let payload = this.parseJwt(this.token);
+    this.roller = payload.roller;
+    return data;
   }
 
   relogin():Observable<any> {
@@ -39,6 +44,27 @@ export class LoginService {
     this.token = "";
     this.email = "";
     this.password = "";
+    this.roller = [];
     localStorage.clear();
+  }
+  
+  parseJwt (token: string) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  }
+
+  userHasRole(roleAdi: string): boolean {
+    let hasRole = false;
+    this.roller.forEach(rol => {
+      if (rol === roleAdi) {
+        hasRole = true;
+      }
+    })
+    return hasRole;
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../service/login.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +9,22 @@ import { LoginService } from '../../service/login.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email = 'levent';
-  password = 'levent';
+  loginForm = this.fb.nonNullable.group({
+    email: 'levent',
+    password: 'levent',
+  });
 
   constructor(
     private loginService: LoginService,
     private router: Router,
+    private fb: FormBuilder,
   ) {
   }
 
   login() {
-    this.loginService.login(this.email, this.password).subscribe({
+    let email = this.loginForm.get('email')!.value;
+    let password = this.loginForm.get('password')!.value;
+    this.loginService.login(email, password).subscribe({
       next: () => {
         this.router.navigate(['/menu']);
       },

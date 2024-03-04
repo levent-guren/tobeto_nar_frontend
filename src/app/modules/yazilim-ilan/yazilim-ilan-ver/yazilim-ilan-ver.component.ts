@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { YazilimIlanService } from '../service/yazilim-ilan.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../../../core/service/login.service';
 
 @Component({
   selector: 'app-yazilim-ilan-ver',
@@ -45,4 +46,5 @@ export class YazilimIlanVerComponent {
       }
     });
   }
+
 }

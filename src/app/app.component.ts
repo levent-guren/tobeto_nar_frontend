@@ -9,11 +9,28 @@ import { APP_CONFIG } from './app.config';
 export class AppComponent implements OnInit {
 
   constructor(
-    // @Inject(APP_CONFIG) private appConfig: any,
   ) {}
 
+  // fonksiyon döndüren fonksiyon için örnek kod:
   ngOnInit(): void {
-    // console.log('App Component Init');
-    // console.log(this.appConfig);
+    let sonuc = this.denemeFonsiyonu();
+    console.log(typeof(sonuc));
+    console.log(sonuc(5));
+
+    sonuc =  this.denemeFonsiyonu2();
+    console.log(typeof(sonuc));
+    console.log(sonuc(8));
+  }
+  denemeFonsiyonu() {
+    return (sayi: number) => {
+      return 'Merhaba:'+sayi;
+    };
+  }
+  denemeFonsiyonu2() {
+    return this.merhabaFonksiyonu; // sonda parantez yok. Bu sayede 
+    // fonksiyonu çağırıp sonucunu döndürmek yerine, fonsksiyonun kendisini döndürüyor
+  }
+  merhabaFonksiyonu(sayi: number) {
+    return 'Merhaba'+sayi;
   }
 }
