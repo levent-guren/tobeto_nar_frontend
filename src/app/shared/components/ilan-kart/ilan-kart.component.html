@@ -1,6 +1,8 @@
 <div class="kart">
-    <div class="d-flex" (click)="kartaBasildi()">
-        <div>Adı: {{ adi }}</div>
-        <div>Soyadı: {{ soyadi }}</div>
+    <div class="" (click)="kartaBasildi()">
+        <div>Adı: {{ ilan.isim }}</div>
+        <div>Soyadı: {{ ilan.soyisim }}</div>
+        <div>İş Tanımı: {{ ilan.isTanimi | kisalt : 30 }} </div>
+        <div>Ücret: {{ ilan.ucret | currency : '' : '': '1.0-0' }} ₺</div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { YazilimIlan } from '../../dto/yazilimIlan';
 
 @Component({
   selector: 'app-ilan-kart',
@@ -6,8 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './ilan-kart.component.scss'
 })
 export class IlanKartComponent {
-  @Input() adi = '';
-  @Input() soyadi = '';
+  @Input() ilan: YazilimIlan = new YazilimIlan();
   @Output() basildi = new EventEmitter();
 
   kartaBasildi() {

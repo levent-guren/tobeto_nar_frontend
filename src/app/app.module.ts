@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { InjectionToken, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountComponent } from './core/component/account/account.component';
 import { APP_CONFIG } from './app.config';
 import { environment } from '../environments/environment';
+import '@angular/common/locales/global/tr';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { environment } from '../environments/environment';
       provide: APP_CONFIG,
       useValue: environment,
     },
+    { provide: LOCALE_ID, useValue: 'tr'},
   ],
   bootstrap: [AppComponent]
 })

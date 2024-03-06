@@ -10,6 +10,7 @@ export class LoginService {
   token = "";
   email = "";
   password = "";
+  kullanicilarId = "";
   roller: string[] = [];
 
   constructor(
@@ -18,6 +19,12 @@ export class LoginService {
 
   login(email:string , password: string):Observable<any> {
     return this.httpClient.post<any>('/login', {email, password}).pipe(
+      map(data => this.parseLoginResponse(data, email, password))
+    );
+  }
+
+  signup(email:string , password: string):Observable<any> {
+    return this.httpClient.post<any>('/signup', {email, password}).pipe(
       map(data => this.parseLoginResponse(data, email, password))
     );
   }
@@ -32,6 +39,7 @@ export class LoginService {
     localStorage.setItem('password', password);
     let payload = this.parseJwt(this.token);
     this.roller = payload.roller;
+    this.kullanicilarId = payload.kullanicilarId;
     return data;
   }
 
@@ -44,6 +52,7 @@ export class LoginService {
     this.token = "";
     this.email = "";
     this.password = "";
+    this.kullanicilarId = "";
     this.roller = [];
     localStorage.clear();
   }

@@ -19,8 +19,6 @@ export class YazilimIlanVerComponent {
     sure: '',
     ucret: ''
   });
-  
-  
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +26,7 @@ export class YazilimIlanVerComponent {
     private yazilimIlanService: YazilimIlanService,
     private router: Router,
     private route: ActivatedRoute,
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +34,8 @@ export class YazilimIlanVerComponent {
   }
 
   submit() {
-    this.yazilimIlanService.yazilimIlanVer(this.ilanForm.value).subscribe({
+    let kullanicilarId = this.loginService.kullanicilarId;
+    this.yazilimIlanService.yazilimIlanVer({...this.ilanForm.value, kullanicilarId }).subscribe({
       next: (resp) => {
         this.toastr.success('Yazılım İlanı Oluşturulmuştur');
         this.router.navigate(['..'], {relativeTo: this.route});

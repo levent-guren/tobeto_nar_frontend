@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { YazilimIlanService } from '../service/yazilim-ilan.service';
-import { YazilimIlan } from '../dto/yazilimIlan';
+import { YazilimIlan } from '../../../shared/dto/yazilimIlan';
 import { LoginService } from '../../../core/service/login.service';
 
 @Component({

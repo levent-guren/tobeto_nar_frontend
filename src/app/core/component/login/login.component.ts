@@ -33,4 +33,16 @@ export class LoginComponent {
       }
     });
   }
+  signUp() {
+    let email = this.loginForm.get('email')!.value;
+    let password = this.loginForm.get('password')!.value;
+    this.loginService.signup(email, password).subscribe({
+      next: () => {
+        this.router.navigate(['/menu']);
+      },
+      error: (err)=> {
+        console.log(err);
+      }
+    });
+  }
 }
